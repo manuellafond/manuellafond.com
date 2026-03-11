@@ -1,0 +1,11 @@
+Installation de Panda
+
+Vous devez télécharger le .zip et extraire son contenu.  
+Ceci crééra un dossier Panda.  Allez à l'intérieur de ce dossier, puis double-cliquez sur panda.jar
+pour lancer le programme.
+
+Panda est écrit en Java.  Pour l'exécuter, il que Java soit installé sur votre ordinateur.
+
+Visitez le site https://www.java.com pour installer Java
+
+Ensuite, téléchargez le fichier panda.zip, dézippez-le, et doublie-cliquez sur le fichier panda.jar pour exécuter Panda.

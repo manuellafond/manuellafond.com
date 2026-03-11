@@ -1,0 +1,264 @@
+<xml>
+	<PROBLEMS>
+
+
+
+	
+
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>$P_4$-free editing</TITLE>
+<TEXT>
+A $P_4$ is a path on $4$ vertices without a chord (so $a,b,c,d$ form a $P_4$ if $ab, bc, cd \in E$ but $ac,ad,bd \notin E$).
+$P_4$-free editing has been studied in bioinformatics, owing to their application in recovering orthologous genes.
+
+In the $P_4$-free editing problem, we are given a graph $G = (V, E)$ and ask for the minimum number of edges to add or remove so that 
+$G$ has no $P_4$.  
+Does this problem admit a constant factor approximation?  Or even a $\log n$-approximation?
+
+The question is also open if we only allow edge deletions.  No matter what operation is allowed, the main problem is that when we delete (or add) an edge to eliminate a $P_4$, we might create other $P_4$'s.  Also note that this problem has also been called cograph editing.
+
+FPT version : there is a simple $O(6^k n^3)$ time algorithm.  If you search the literature, you might find a $P(4.7^k n^c)$ time algorithm.  Can you do better?  Also, are there reduction rules you can come up with, or alternate parameterizations?
+</TEXT>
+</PROBLEM>
+
+	
+	
+	
+<PROBLEM>
+<TITLE>A kernel for BICLUSTER EDITING</TITLE>
+<TEXT>
+A bicluster is a bipartite graph with parts $V_1, V_2$ in which every possible edge between $V_1$ and $V_2$ is present.
+In BICLUSTER EDITING, we want to add/delete a minimum number of edges so that every connected component is a bicluster.
+
+Is that FPT?  Yes it is, there is a simple $O(4^k n^c)$ algorithm (can you find it?).  I have improved this to $O(2.695^k n^c)$ 
+and have devised a kernel of size $5k$.  I have designed a set of reduction rules that lead to this $5k$ kernel, but I think it might actually lead 
+to a kernel of size $4k$.  It's just that I can't prove it.  You can try to look at the reduction rules and see if either you can prove it's a $4k$ kernel, or it's not.  Any other algorithmic idea is also welcome.
+
+
+
+Refs : <![CDATA[<a href='papers/Biclustering_FPT_vconf.pdf'>click here to see the paper</a>]]>
+</TEXT>
+</PROBLEM>	
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>The colored traveling salesperson problem</TITLE>
+<TEXT>
+Suppose we need to deliver packages to $n$ cities, going through each city exactly once.  This is the classical Traveling Salesperson Problem (TSP).
+But suppose that each city has a set of possible delivery points, and we only need to go to one of these points for each city.
+However, all the pairs of delivery points between two cities have different weights.  We want to visit $n$ delivery points, and both the minimisation or maximisation problems are interesting.
+
+
+If we view the city as a vertex color, the problem can be stated formally as follows.
+
+Given: a graph $G = (V, E)$ with a coloring $c : V \rightarrow \{1, 2, \ldots, n\}$ on the vertices, and edge weight $w$;
+
+Find: a cycle of minimum weight that goes through every color exactly once.
+
+For simplicity, we may assume that there is a color with only one vertex, which serves as the starting and ending point.
+In the min-version, we assume the triangle inequality and want to minimize the cost of edges.  In the max-version, we want to maximize the cost of edges.  The max-version has an easy $2$-approximation.  Can it be improved?
+
+FPT version : the problem is probably NOT FPT in the parameter "k = weight of the cycle".  It is FPT in the parameter "k = number of colors", with a $O(k!n^c)$ time algorithm.  Can you 1) find this algorithm, and 2) find a better algorithm?  Is it FPT in the treewidth parameter (probably, because the uncolored version is)?  
+</TEXT>
+<IMAGE>coltsp2.png</IMAGE>
+<IMAGEW>237</IMAGEW>
+<IMAGEH>345</IMAGEH>
+</PROBLEM>
+	
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>The most modular cluster</TITLE>
+<TEXT>
+We are given a graph $G = (V, E)$ with weights $w : {V \choose 2} \rightarrow \mathbb{R}^{\geq 0}$ (so the weights apply on every possible pair, both edges and non-edges). 
+The interpretation is that if $uv \in E$, $w(uv)$ is the cost to delete $uv$ and if $uv \notin E$, $w(uv)$ is the cost to add edge $uv$.
+
+We would like to find the best cluster in this graph (just one).  The cost of a non-empty cluster $C \subseteq V$ is the weight of non-edges inside $C$, plus the weight of the edges going out of $C$.
+For instance in the Figure, the group of vertices in green will induce a cost for all the missing edges (red) and all the exiting edges (blue). 
+Formally, 
+$$
+cost(C) = \sum_{uv \in E, u \in C, v \notin C} w(uv) + \sum_{uv \notin E, u,v \in C} w(uv)
+$$
+One question is whether it is possible to design an approximation to find a minimum-cost cluster.
+
+This has a tendency to give clusters that are too large, so perhaps a more useful problem would be to find a cluster that minimizes the cost-to-size ratio.  
+That is, find a subset $C \subseteq V$ that minimizes 
+$$
+\frac{1}{|C|} cost(C)
+$$
+The $C$ that minimizes this expression is called a most modular cluster.
+Is there a constant factor approximation for this problem?  Or perhaps a $\log n$-approximation?
+
+FPT version : first of all, is there a polynomial time algorithm to determine if there exists a solution of cost 0?  Second, is this FPT in the total weight of the cluster?  If all weights are 1, is it easier?  Is it FPT in the treewidth parameter?  Any reduction rules we can apply?
+</TEXT>
+<IMAGE>modcl.png</IMAGE>
+<IMAGEW>216</IMAGEW>
+<IMAGEH>400</IMAGEH>
+</PROBLEM>
+
+
+
+
+
+
+
+
+<PROBLEM>
+<TITLE>String problem 1 : transforming strings with duplications and deletions</TITLE>
+<TEXT>
+DNA sequences evolve by duplications and deletions (among other events).
+Given a string $S$ representing DNA, a duplication copies a substring of $S$ and pastes it somewhere in $S$.
+For example, with $S = abcdefg$, a duplication could take $bcd$ and copy-paste it before the $f$, resulting in $abcdeabcfg$.
+A deletion removes a substring of $S$.  For example, with $S = abcdefg$, a deletion could remove $bcd$, resulting in $aefg$.
+
+Given two strings $S$ and $T$, how many duplication and deletion events are needed to transform $S$ into $T$?
+Note that the strings can have repeated characters, unlike in the examples.
+
+FPT version : is that FPT?  This is probably a difficult question.  Try with the restriction that all characters of S are different, 
+and try with deletions only, or duplications only.  There might be a kernel in this case.
+</TEXT>
+</PROBLEM>
+
+
+
+<PROBLEM>
+<TITLE>String problem 2 : transforming strings into target copy-numbers</TITLE>
+<TEXT>
+Let $\Sigma$ be an alphabet (a set of symbols) and let $c : \Sigma \rightarrow \mathbb{N}$ be a function that gives us a number for each symbol.
+
+Given a string $S$ and such a function $c$, find the minimum number of duplications and deletions to $S$ so that the resulting string has $c(s)$ occurrences of symbol $s$ for each $s \in \Sigma$.
+We may assume that all characters in $S$ are different.
+
+For instance, assume that $c$ wants us to have $c(x) = 0$, $c(y) = 2$, $c(z) = 2$.  
+Suppose that $S = xyz$.  Then we may do $S = xyz \rightarrow xyzyz \rightarrow yzyz$, so two moves.
+
+Assuming that $S$ has no repeated character, it is unknown whether it is NP-hard, and unknown whether this admits a good approximation.
+
+FPT version : is this FPT in the number of events?  FPT in the size of $\Sigma$?  FPT in the parameter $k = \sum_{s \in \Sigma} c(s)$?  
+Any reduction rules we can apply? 
+</TEXT>
+</PROBLEM>
+
+
+
+
+<PROBLEM>
+<TITLE>String problem 3 : transforming strings with block interchanges</TITLE>
+<TEXT>
+Given a string $S$, a block interchange takes a substring of $S$ and exchanges it with a substring of the same length.
+For example, if $S = abcdeabefgh$, we could exchange $bcd$ and $bef$, resulting in $abefeabcdgh$.
+
+Given two strings $S$ and $T$, what is the minimum number of block interchanges required to transform $S$ into $T$?  Is there a good approximation for this problem?
+
+FPT version : is this FPT?  I have spent hours on this - it is not easy.  To simplify, you could assume that all characters of $S$ are distinct (in this case, it's polynomial time solvable), or you could assume that each character occurs at most twice (in this case, it's NP-hard I think, but probably FPT).
+</TEXT>
+</PROBLEM>
+
+
+
+
+<!-- PROBLEM>
+<TITLE>String occurrence vector transformation using duplications and deletions</TITLE>
+<TEXT>
+<b>Background</b>
+When sequencing single cells in tumors, it is frequent to infer the copy-number of segments of interest in each cell.
+This results in a copy-number profile (CNP), a vector of non-negative values.
+If we interpret each segment as a symbol, a genome $G$ can be viewed as a string over some large alphabet $\Sigma$.  
+Given $x \in \Sigma$, denote by $n_G(x)$ as the number of occurrences of $x$ in $G$.
+Given an ordering $(s_1, \ldots, s_m)$ of this alphabet The CNP of G 
+is then 
+
+$$
+CNP(G) = (n_G(s_1), n_G(s_2), \ldots, n_G(s_m))
+$$
+
+Given two CNPs $C_1$ and $C_2$ obtained from unknown genomes, we would like to compare $C_1$ with $C_2$.
+In this problem, we assume that a genome undergoes duplications and deletions, and would like to find genomes with CNPs $C_1$ and $C_2$ 
+that require a minimum number of events.
+
+<b>The problem</b>
+In we transpose this terminology from stringology to theoretical computer science, the CNP of a string $w$ is called the Parikh vector of $w$, often denoted $p(w)$.
+More precisely, [...]
+We allow two word operations: a tandem duplication (TD) takes a substring $w'$ of $w$ and adds a copy next to $w'$, and a deletion (D) removes a subtring from $w$. 
+In other words, a duplication takes the form $w = xw'y \rightarrow xw'w'y$ and a deletion takes the form $w = xw'y \rightarrow xy$.
+The distance $d(x, y)$ between two strings $x$ and $y$ is the minimum number of TD and D operations to transform $x$ into $y$.
+This distance is NP-hard to compute, but here only the Parikh vectors are known.
+
+Given two integer vectors $c_1$ and $c_2$, find two strings $x$ and $y$ such that $p(x) = c_1$ and $p(y) = c_2$, 
+and such that $d(x, y)$ is minimum.
+
+I don't know if this is NP-hard, and have not learned much about this problem despite trying.  We don't even have an approximation algorithm, 
+although a horrible FPT algorithm exists for parameter XXXX.
+</TEXT>
+</PROBLEM >
+
+
+
+
+<PROBLEM>
+<TITLE>String-to-Parikh vector minimum transformation</TITLE>
+<TEXT>
+Let us reuse the same background and terminology of the previous problem.
+Suppose now that we are given a string $x$ and an integer vector $c$.  
+Find a string $y$ such that $p(z) = c$ and such that $d(x, y)$ is minimum.
+
+We have a proof that there is no constant factor approximation, but no positive result.
+Is there a $O(\log n)$ approximation?  The case where $p(x) = (1,1,1,\ldots, 1)$ is interesting (it is called the exemplar case), but we have no results. 
+</TEXT>
+</PROBLEM -->
+
+
+
+
+
+
+
+
+<PROBLEM>
+<TITLE>Fitting clusters into trees</TITLE>
+<TEXT>
+Let $L$ be a set and let $T$ be a rooted tree with $|L|$ leaves in which each leaf is labeled with a distinct element of $L$.
+For $v \in V(T)$, $cluster(v)$ is equal to the set of leaves that are descendants of $v$.
+We define $clusters(T)$ as the set of all cluster of $T$, i.e. $clusters(T) = \{cluster(v) : v \in V(T)\}$.
+
+We are given a set $C = \{C_1, C_2, \ldots, C_m\}$ of subsets of $L$.  We want to find a tree that maximizes the nubmer of clusters in common with $S$.
+That is, find a tree with leafset $L$ that maximizes $|clusters(T) \cap C|$.
+
+Surprisingly, I couldn't find any result on this in the literature.  A first thing to do would be to perform a more thorough search.
+
+FPT version : is it FPT in the number of clusters $k = |clusters(T) \cap C|?  Any reduction rules we can apply?
+</TEXT>
+</PROBLEM>
+
+
+
+
+<!-- PROBLEM>
+<TITLE>Maximum cycle chords-to-length ratio and minimum degree</TITLE>
+<TEXT>
+Here's a pure graph theory question.
+Let $G$ be a graph and let $C$ be a cycle of $G$.  Denote the number of chords of $C$ by $ch(C)$.  
+The chord-to-length ratio of $C$ is $ch(C)/|C|$, and the maximum chord-to-length ratio of $G$ is 
+$chl(G) = \max_{C~cycle} ch(C)/|C|$.
+
+Suppose that $G$ has minimum degree $d$.
+Give a lower bound on $chl(G)$ in terms of $d$.
+
+More precisely, the question is whether there exists a strictly increasing function $f : \mathbb{N} \rightarrow \mathbb{R}$ such that 
+every graph of minimum degree $d$ satisfies $chl(G) \geq f(d)$.
+  </TEXT>
+</PROBLEM -->
+
+	</PROBLEMS>
+</xml>
+
+
+

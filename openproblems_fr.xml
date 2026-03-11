@@ -1,0 +1,329 @@
+<xml>
+	<PROBLEMS>
+
+
+
+	
+<PROBLEM>
+<TITLE>Le cluster le plus modulaire</TITLE>
+<TEXT>
+On nous donne un graphe \(G = (V, E)\) avec des poids \(w : {V \choose 2} \rightarrow \mathbb{R}^{\geq 0}\) (donc les poids s'appliquent à toutes les paires, les arêtes et les non-arêtes). 
+L'interprétation est que si \(uv \in E\), alors \(w(uv)\) est le coût pour supprimer \(uv\) et si \(uv \notin E\), alors \(w(uv)\) est le coût pour ajouter l'arête \(uv\).
+
+On voudrait trouver le meilleur cluster dans ce graphe (un seul).  Le coût d'un cluster non-vide \(C \subseteq V\) est le poids des non-arêtes à l'intérieur de \(C\), plus le poids des arêtes qui sortent de \(C\).
+Par exemple dans la figure, le groupe de sommets en vert induira un coût pour toutes les arêtes manquantes (rouge) et toutes les arêtes sortantes (bleu). 
+Formellement, 
+$$
+coût(C) = \sum_{uv \in E, u \in C, v \notin C} w(uv) + \sum_{uv \notin E, u,v \in C} w(uv)
+$$
+Une question est de savoir s'il est possible de concevoir une approximation pour trouver un cluster à coût minimum.
+
+Toutefois en pratique, cela a tendance à donner des clusters trop grands.  Un problème plus utile serait de trouver un cluster qui minimise le rapport coût/taille.  
+Autrement dit, on veut trouver un sous-ensemble \(C \subseteq V\) qui minimise 
+$$
+\frac{1}{|C|} coût(C)
+$$
+Le \(C\) qui minimise cette expression est appelé le cluster le plus modulaire.
+Existe-t-il une approximation à facteur constant pour ce problème ?  Ou peut-être une approximation de \(\log n\)?
+
+Ce problème est lié à ce qu'on appelle le correlation clustering.
+
+
+Version FPT : si le paramètre est \(k = coût(C)\), est-ce FPT?  Peut-être que non, car ça ressemblera au problème MAX-CLIQUE, qui n'a pas d'algo FPT.  Mais ce n'est pas exactement le même problème alors cette question demande investigation.  Pouvez-vous penser à d'autres paramètres d'intérêt?
+</TEXT>
+<IMAGE>modcl.png</IMAGE>
+<IMAGEW>216</IMAGEW>
+<IMAGEH>400</IMAGEH>
+</PROBLEM>
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>Le commis voyageur coloré</TITLE>
+<TEXT>
+Supposons que nous devons livrer des colis à \(n\) villes, en passant par chaque ville exactement une fois.  Il s'agit du problème classique du commis voyageur (ou Traveling Salesperson Problem, TSP).  Mais supposons que chaque ville dispose d'un ensemble de points de livraison possibles, et que nous ne devons nous rendre qu'à un seul de ces points pour chaque ville.  Cependant, toutes les paires de points de livraison entre deux villes ont des poids différents.  Nous voulons visiter \(n\) points de livraison, et les deux problèmes de minimisation ou de maximisation sont intéressants.
+
+
+Si nous considérons la ville comme une couleur de sommet, le problème peut être formellement énoncé comme suit.
+
+Étant donné : un graphe \(G = (V, E)\) avec une coloration \(c : V \rightarrow \{1, 2, \ldots, n\}\) sur les sommets, et un poids d'arête \(w\) ;
+
+Trouver : un cycle de poids minimum qui passe par chaque couleur exactement une fois.
+
+Pour simplifier, nous pouvons supposer qu'il existe une couleur avec un seul sommet, qui sert de point de départ et d'arrivée.
+Dans la version min, nous supposons l'inégalité triangulaire et voulons minimiser le coût des bords.  Dans la version max, nous voulons maximiser le coût des arêtes.  La version max a une approximation relativement facile de 2.  Peut-on l'améliorer ?
+
+</TEXT>
+<IMAGE>coltsp2.png</IMAGE>
+<IMAGEW>237</IMAGEW>
+<IMAGEH>345</IMAGEH>
+</PROBLEM>
+	
+	
+	
+	
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>Assignation équitable de clients à \(k\) centres</TITLE>
+<TEXT>
+On a \(n\) points dans l'espace 2D dénotés \(P = \{(x_1, y_1), \ldots, (x_n, y_n)\}\), qui représentent des clients.  On a aussi \(k\) autres points \(C = \{(c_1, d_1), \ldots, (c_k, d_k)\}\) qui représentent des centres.  Afin de bien distribuer la clientèle, on veut que chaque centre soit assigné de façon optimale à exactement \(n/k\) clients (on suppose que \(n\) est un multiple de \(k\)).
+
+Il y a plusieurs façons de définir "de façon optimale".  Une façon est de minimiser la somme des distances euclidiennes clients-centres.  Une autre est de minimiser la somme maximum d'un centre à ses clients.  Dans les deux cas, quel ratio d'approximation peut-on atteindre?  Doit-il dépendre de \(k\)?  On peut aussi se concentrer sur les cas \(k = 2\) ou \(k = 3\).
+
+La version formelle du problème peut s'écrire comme suit.  Une \(n/k\)-partition de \(P\) est une partition en \(k\) éléments dans laquelle chaque ensemble a \(n/k\) éléments.
+On cherche donc une \(n/k\)-partition \(\{R_1, \ldots, R_k\}\) de \(P\) qui minimise
+$$
+\sum_{i = 1}^{k} \left(\sum_{(x, y) \in R_i} \sqrt{(x - c_i)^2 + (y - d_i)^2} \right)
+$$
+Dans la deuxième version du problème, on peut vouloir minimiser 
+$$
+\max_{i \in \{1, 2, \ldots, k\}} \left(\sum_{(x, y) \in R_i} \sqrt{(x - c_i)^2 + (y - d_i)^2}\right)
+$$
+
+Vous pouvez aussi tenter la distance Manhattan si elle s'avère plus facile.
+
+
+Version FPT : je peux affirmer que si k = nombre de centres, vous ne trouverez pas d'algo FPT.  Il faut un autre paramètre.  Peut-être étudier la variante où les coordonnées sont des entiers, et k est la distance Manhattan totale.  Ou pensez à un autre paramètre.
+
+</TEXT>
+<IMAGE>images/centers.png</IMAGE>
+<IMAGEW>210</IMAGEW>
+<IMAGEH>280</IMAGEH>
+</PROBLEM>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>Comment éliminer les \(P_4\)</TITLE>
+<TEXT>
+Un \(P_4\) est un chemin sur 4 sommets sans raccourcis (donc \(a,b,c,d\) forment un \(P_4\) si \(ab, bc, cd \in E\) mais \(ac,ad,bd \notin E\)).
+
+Dans le problème de l'édition \(P_4\), on nous donne un graphe \(G = (V, E)\) et on nous demande le nombre minimum d'arêtes à ajouter ou à supprimer pour que \(G\) n'ait pas de \(P_4\).  L'édition sans \(P_4\) a été étudiée en bioinformatique, en raison de son application à la recherche de gènes ayant les mêmes fonctions.
+Ce problème admet-il une approximation à facteur constant?  Ou même une approximation de \(\log n\)?
+
+La question est également ouverte si nous n'autorisons que les suppressions d'arêtes.  Quelle que soit l'opération autorisée, le problème principal est que lorsque nous supprimons (ou ajoutons) une arête pour éliminer un \(P_4\), nous pouvons créer d'autres \(P_4\).  
+
+Dans la littérature, ce problème est appelé \(P_4\)-free editing, ou parfois cograph editing.
+
+Version FPT : il y a un algorithme simple en temps \(O(6^k n^3)\).  Pouvez-vous faire mieux?  Ou encore, pouvez-vous trouver un autre paramètre intéressant?
+
+</TEXT>
+<IMAGE>images/nop4.png</IMAGE>
+<IMAGEW>280</IMAGEW>
+<IMAGEH>280</IMAGEH>
+</PROBLEM>
+
+	
+	
+	
+<!-- PROBLEM>
+<TITLE>A kernel for BICLUSTER EDITING</TITLE>
+<TEXT>
+A bicluster is a bipartite graph with parts \(V_1, V_2\) in which every possible edge between \(V_1\) and \(V_2\) is present.
+In BICLUSTER EDITING, we want to add/delete a minimum number of edges so that every connected component is a bicluster.
+
+Is that FPT?  Yes it is, there is a simple \(O(4^k n^c)\) algorithm (can you find it?).  I have improved this to \(O(2.695^k n^c)\) 
+and have devised a kernel of size \(5k\).  I have designed a set of reduction rules that lead to this \(5k\) kernel, but I think it might actually lead 
+to a kernel of size \(4k\).  It's just that I can't prove it.  You can try to look at the reduction rules and see if either you can prove it's a \(4k\) kernel, or it's not.  Any other algorithmic idea is also welcome.
+
+
+
+Refs : <![CDATA[<a href='papers/Biclustering_FPT_vconf.pdf'>click here to see the paper</a>]]>
+</TEXT>
+</PROBLEM -->	
+	
+	
+	
+	
+<PROBLEM>
+<TITLE>Comment mettre des clusters dans les arbres</TITLE>
+<TEXT>
+Soit \(L\) un ensemble quelconque et soit \(T\) un arbre enraciné avec \(|L|\) feuilles dans lequel chaque feuille est étiquetée avec un élément distinct de \(L\).  Pour \(v \in V(T)\), \(cluster(v)\) est égal à l'ensemble des feuilles qui sont des descendants de \(v\).  Nous définissons \(clusters(T)\) comme l'ensemble de tous les clusters de \(T\), c'est-à-dire \(clusters(T) = \{cluster(v) : v \in V(T)\}\).
+
+On nous donne un ensemble \(C = \{C_1, C_2, \ldots, C_m\}\) de sous-ensembles de \(L\).  Nous voulons trouver un arbre qui maximise le nombre de clusters en commun avec \(S\).
+C'est-à-dire trouver un arbre avec un ensemble de feuilles \(L\) qui maximise \(|clusters(T) \cap C|\).
+
+Étonnamment, je n'ai pas trouvé de résultat d'approximation à ce sujet dans la littérature.  Une première chose à faire serait d'effectuer une recherche plus approfondie.
+
+Version FPT : si k est le nombre de clusters à conserver, il n'y a (probablement) pas d'algo de la forme O(f(k) n^c).  Pouvez-vous le démontrer?
+Y a-t-il un autre paramètre intéressant?  
+Vous pouvez aussi penser à une version de minimisation de coût.  Supposons qu'étant donné un arbre \(T\), chaque cluster \(C_i\) a un coût \(c(C_i, T)\) et on veut minimiser la somme des coûts.  
+Un exemple de coût pour \(C_i\) est le nombre d'éléments à retirer de \(C_i\) pour qu'il devienne un élément de \(clusters(T)\).  Est-ce FPT si \(k\) est un paramètre de coût?
+Pouvez-vous penser à d'autres coûts pertinents?
+
+</TEXT>
+<IMAGE>images/treecl.png</IMAGE>
+<IMAGEW>280</IMAGEW>
+<IMAGEH>280</IMAGEH>
+</PROBLEM>
+	
+	
+	
+	
+	
+
+<PROBLEM>
+<TITLE>Édition de graphes</TITLE>
+<TEXT>
+Soient \(G_1\) et \(G_2\) deux graphes ayant le même nombre de sommets, disons \(n\).  On a aussi une étiquette sur chaque sommet de \(G_1\) et \(G_2\).  On veut transformer \(G_1\) et \(G_2\) en ajoutant/supprimant un nombre minimum d'arêtes.  On peut aussi introduire une opération qui permet de changer l'étiquette d'un sommet.
+
+Formellement, on a \(c_1 : G_1 \rightarrow \mathbb{N}\) et \(c_2 : G_2 \rightarrow \mathbb{N}\) deux fonctions d'étiquettage.  Notez que deux sommets ou plus de même graphe peuvent avoir la même étiquette.  Quel est le nombre minimum d'operations pour transformer \(G_1\) en un graphe identique à \(G_2\)?  Assurez-vous de bien définir "identiques" (à discuter avec moi en cas de doute).
+
+Je ne connais pas d'approximation pour ce problème.  Vous pouvez décider de permettre ou interdire le changement d'étiquette.  Aussi, si toutes les étiquettes sont distinctes sur \(G_1\) et distinctes sur \(G_2\), est-ce plus facile?  Sans changement d'étiquette, c'est trivial, mais si on les permet?  D'autres classes d'instances contraintes peuvent être étudiées.
+
+
+Version FPT : un paramètre évident est le nombre d'opérations.  Est-ce FPT?  Si oui, est-ce qu'on peut obtenir un kernel?
+
+</TEXT>
+<IMAGE>images/graphedit.png</IMAGE>
+<IMAGEW>190</IMAGEW>
+<IMAGEH>320</IMAGEH>
+</PROBLEM>
+
+
+
+
+
+
+
+<PROBLEM>
+<TITLE>Problème de strings 1 : transformation avec suppression et insertion</TITLE>
+<TEXT>
+Étant donné une string \(S\) représentant, une duplication copie une sous-chaîne contiguë de \(S\) et la colle quelque part dans \(S\).
+Par exemple, avec \(S = abcdefg\), une duplication pourrait prendre \(bcd\) et le copier-coller avant le \(f\), ce qui donnerait \(abcdeabcfg\).
+Une suppression supprime une sous-chaîne contiguë de \(S\).  Par exemple, avec \(S = abcdefg\), une suppression pourrait enlever \(bcd\), ce qui donnerait \(aefg\).
+Ceci a des applications en analyse de texte, ainsi qu'en bioinformatique.
+
+Étant donné deux chaînes de caractères \(S\) et \(T\), combien d'événements de duplication et de suppression sont nécessaires pour transformer \(S\) en \(T\) ?
+Notez que les chaînes de caractères peuvent avoir des caractères répétés, contrairement aux exemples.
+</TEXT>
+<IMAGE>images/dupdeledit.png</IMAGE>
+<IMAGEW>190</IMAGEW>
+<IMAGEH>280</IMAGEH>
+</PROBLEM>
+
+
+
+<PROBLEM>
+<TITLE>Problème de strings 2 : transformation en copy-number</TITLE>
+<TEXT>
+Soit \(\Sigma\) un alphabet et soit \(c : \Sigma \rightarrow \mathbb{N}\) une fonction qui nous donne un nombre d'occurrences voulues pour chaque symbole.
+C'est ce qu'on appelle une fonction de copy-number.
+
+Étant donné une chaîne de caractères \(S\) et une fonction \(c\), on veut trouver le nombre minimum de duplications et de suppressions de \(S\) pour que la chaîne de caractères résultante ait \(c(s)\) occurrences du symbole \(s\) pour chaque \(s \in \Sigma\).
+Nous pouvons même supposer que tous les caractères de \(S\) sont différents.
+
+Par exemple, supposons que \(c\) veuille que nous ayons \(c(x) = 0\), \(c(y) = 2\), \(c(z) = 2\).  
+Supposons que \(S = xyz\).  Nous pouvons alors faire \(S = xyz \rightarrow xyzyz \rightarrow yzyz\), donc deux événements pour avoir \(0~x, 2~y\), et \(2~z\).
+
+
+En supposant que \(S\) n'a pas de caractère répété, on ne sait pas si c'est NP-difficile, et on ne sait pas si cela admet une bonne approximation.
+</TEXT>
+<IMAGE>images/cnpedit.png</IMAGE>
+<IMAGEW>190</IMAGEW>
+<IMAGEH>300</IMAGEH>
+</PROBLEM>
+
+
+
+
+<!-- PROBLEM>
+<TITLE>String problem 3 : transforming strings with block interchanges</TITLE>
+<TEXT>
+Given a string \(S\), a block interchange takes a substring of \(S\) and exchanges it with a substring of the same length.
+For example, if \(S = abcdeabefgh\), we could exchange \(bcd\) and \(bef\), resulting in \(abefeabcdgh\).
+
+Given two strings \(S\) and \(T\), what is the minimum number of block interchanges required to transform \(S\) into \(T\)?  Is there a good approximation for this problem?
+
+FPT version : is this FPT?  I have spent hours on this - it is not easy.  To simplify, you could assume that all characters of \(S\) are distinct (in this case, it's polynomial time solvable), or you could assume that each character occurs at most twice (in this case, it's NP-hard I think, but probably FPT).
+</TEXT>
+</PROBLEM -->
+
+
+
+
+<!-- PROBLEM>
+<TITLE>String occurrence vector transformation using duplications and deletions</TITLE>
+<TEXT>
+<b>Background</b>
+When sequencing single cells in tumors, it is frequent to infer the copy-number of segments of interest in each cell.
+This results in a copy-number profile (CNP), a vector of non-negative values.
+If we interpret each segment as a symbol, a genome \(G\) can be viewed as a string over some large alphabet \(\Sigma\).  
+Given \(x \in \Sigma\), denote by \(n_G(x)\) as the number of occurrences of \(x\) in \(G\).
+Given an ordering \((s_1, \ldots, s_m)\) of this alphabet The CNP of G 
+is then 
+
+\)\)
+CNP(G) = (n_G(s_1), n_G(s_2), \ldots, n_G(s_m))
+\)\)
+
+Given two CNPs \(C_1\) and \(C_2\) obtained from unknown genomes, we would like to compare \(C_1\) with \(C_2\).
+In this problem, we assume that a genome undergoes duplications and deletions, and would like to find genomes with CNPs \(C_1\) and \(C_2\) 
+that require a minimum number of events.
+
+<b>The problem</b>
+In we transpose this terminology from stringology to theoretical computer science, the CNP of a string \(w\) is called the Parikh vector of \(w\), often denoted \(p(w)\).
+More precisely, [...]
+We allow two word operations: a tandem duplication (TD) takes a substring \(w'\) of \(w\) and adds a copy next to \(w'\), and a deletion (D) removes a subtring from \(w\). 
+In other words, a duplication takes the form \(w = xw'y \rightarrow xw'w'y\) and a deletion takes the form \(w = xw'y \rightarrow xy\).
+The distance \(d(x, y)\) between two strings \(x\) and \(y\) is the minimum number of TD and D operations to transform \(x\) into \(y\).
+This distance is NP-hard to compute, but here only the Parikh vectors are known.
+
+Given two integer vectors \(c_1\) and \(c_2\), find two strings \(x\) and \(y\) such that \(p(x) = c_1\) and \(p(y) = c_2\), 
+and such that \(d(x, y)\) is minimum.
+
+I don't know if this is NP-hard, and have not learned much about this problem despite trying.  We don't even have an approximation algorithm, 
+although a horrible FPT algorithm exists for parameter XXXX.
+</TEXT>
+</PROBLEM >
+
+
+
+
+<PROBLEM>
+<TITLE>String-to-Parikh vector minimum transformation</TITLE>
+<TEXT>
+Let us reuse the same background and terminology of the previous problem.
+Suppose now that we are given a string \(x\) and an integer vector \(c\).  
+Find a string \(y\) such that \(p(z) = c\) and such that \(d(x, y)\) is minimum.
+
+We have a proof that there is no constant factor approximation, but no positive result.
+Is there a \(O(\log n)\) approximation?  The case where \(p(x) = (1,1,1,\ldots, 1)\) is interesting (it is called the exemplar case), but we have no results. 
+</TEXT>
+</PROBLEM -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</PROBLEMS>
+</xml>
+
+
+

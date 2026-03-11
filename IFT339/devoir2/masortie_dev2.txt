@@ -1,0 +1,103 @@
+------------------------ push_back x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 0
+fin_cap = 0
+Capacite = 1
+Dimension = 1
+Elements utilisateurs = [0]
+Elements de debut_cap = [0]
+
+------------------------ push_back x 4 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 4
+fin_cap = 7
+Capacite = 8
+Dimension = 5
+Elements utilisateurs = [0, 1, 2, 3, 4]
+Elements de debut_cap = [0, 1, 2, 3, 4, X, X, X]
+
+------------------------ pop_back x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 3
+fin_cap = 7
+Capacite = 8
+Dimension = 4
+Elements utilisateurs = [0, 1, 2, 3]
+Elements de debut_cap = [0, 1, 2, 3, X, X, X, X]
+
+------------------------ pop_front x 2 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 2
+fin_elem = 3
+fin_cap = 7
+Capacite = 8
+Dimension = 2
+Elements utilisateurs = [2, 3]
+Elements de debut_cap = [X, X, 2, 3, X, X, X, X]
+
+------------------------ push_back x 6 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 2
+fin_elem = 1
+fin_cap = 7
+Capacite = 8
+Dimension = 8
+Elements utilisateurs = [2, 3, 5, 6, 7, 8, 9, 10]
+Elements de debut_cap = [9, 10, 2, 3, 5, 6, 7, 8]
+
+------------------------ push_back x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 8
+fin_cap = 15
+Capacite = 16
+Dimension = 9
+Elements utilisateurs = [2, 3, 5, 6, 7, 8, 9, 10, 11]
+Elements de debut_cap = [2, 3, 5, 6, 7, 8, 9, 10, 11, X, X, X, X, X, X, X]
+
+------------------------ push_back x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 1
+fin_cap = 3
+Capacite = 4
+Dimension = 2
+Elements utilisateurs = [2, 3]
+Elements de debut_cap = [2, 3, X, X]
+
+------------------------ push_front x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 3
+fin_elem = 1
+fin_cap = 3
+Capacite = 4
+Dimension = 3
+Elements utilisateurs = [12, 2, 3]
+Elements de debut_cap = [2, 3, X, 12]
+
+------------------------ reserve x 1 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = 0
+fin_elem = 2
+fin_cap = 29
+Capacite = 30
+Dimension = 3
+Elements utilisateurs = [12, 2, 3]
+Elements de debut_cap = [12, 2, 3, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X]
+
+------------------------ pop_back x 3 ------------------------
+Positions relatives a debut_cap: (-1 veut dire nullptr)
+debut_elem = -1
+fin_elem = -1
+fin_cap = -1
+Capacite = 0
+Dimension = 0
+Le deque est vide.
+NOTE: dans ce dernier cas de test, votre sortie peut differer selon votre
+choix de representation de liste vide (ici, j'utilise vide => nullptr partout)
+
+------------------------ TEST_HISTO ------------------------
+Ordre = 3 1 6 5 7

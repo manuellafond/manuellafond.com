@@ -1,0 +1,439 @@
+{
+  "formulas" : [ {
+    "formulaName" : "Formula-0",
+    "question" : "y n’est pas un pentagone de taille medium.",
+    "formulaText" : "not (Pentagon(y) & Medium(y))\n// (ou vous pourriez écrire not Pentagon(y) or not Medium(y))",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "y",
+        "gridPosX" : 2,
+        "gridPosY" : 4,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-1",
+    "question" : "w est un triangle ou un carré",
+    "formulaText" : "Triangle(w) or Square(w)",
+    "worlds" : [ ]
+  }, {
+    "formulaName" : "Formula-2",
+    "question" : "w est une seule des formes parmi triangle, carré ou pentagone.",
+    "formulaText" : "//notez qu'on ne peut pas tester cette propriété, \n//car tarski s'assure déjà que w n'est pas 2 formes à la fois\n//Par contre, on pourrait vouloir le vérifier.\n//D'abord on s'assure que w est une des formes\n//(je ne pénaliserais pas si vous aviez omis ceci)\n(Triangle(w) or Square(w) or Pentagon(w))\n&\n//ensuite on vérifie que w n'est pas deux formes à la fois\nnot (Triangle(w) & Square(w))\n&\nnot (Square(w) & Pentagon(w))\n&\nnot (Triangle(w) & Pentagon(w))\n",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "w",
+        "gridPosX" : 2,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-3",
+    "question" : "si x est un carré, alors il n’est pas petit.",
+    "formulaText" : "//les phrases de la forme \"si X alors Y\" signifient que l'on veut une implication\n//notez que si x n'est pas un carré, l'implication est vraie\nSquare(x) => not Small(x)",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 2,
+        "gridPosY" : 1,
+        "blockSize" : "SMALL",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-2",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 4,
+        "gridPosY" : 5,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-4",
+    "question" : "aucun carré n’est petit (rappelez-vous qu’il y a quatre variables).",
+    "formulaText" : "//puisque l'on n'a pas accès aux quantificateurs, on doit vérifier\n//chacun de w, x, y, z séparément\n//Notez que les parenthèses sont importantes, car le & a priorité sur le =>\n(Square(w) => not Small(w))\n&\n(Square(x) => not Small(x))\n& \n(Square(y) => not Small(y))\n&\n(Square(z) => not Small(z))\n",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 2,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "w",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 4,
+        "gridPosY" : 2,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "z",
+        "gridPosX" : 5,
+        "gridPosY" : 5,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-5",
+    "question" : "x est un carré si et seulement si y n’est pas à gauche de z.",
+    "formulaText" : "//rappelons que <=> veut dire si et seulement si\nSquare(x) <=> not LeftOf(y, z)",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 2,
+        "blockSize" : "SMALL",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "y",
+        "gridPosX" : 4,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 2,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 5,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "z",
+        "gridPosX" : 4,
+        "gridPosY" : 5,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      } ]
+    }, {
+      "worldName" : "World-2",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "y",
+        "gridPosX" : 2,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "x",
+        "gridPosX" : 3,
+        "gridPosY" : 1,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "z",
+        "gridPosX" : 4,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      } ]
+    }, {
+      "worldName" : "World-3",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "z",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "x",
+        "gridPosX" : 4,
+        "gridPosY" : 1,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "y",
+        "gridPosX" : 5,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-6",
+    "question" : "x et y ne peuvent pas etre sur la meme case.",
+    "formulaText" : "//notez que tarski ne vous permet pas de placer deux formes sur la même case\n//on ne peut donc pas valider cette formule\n//vous devez donc vous faire confiance :)\nnot SameRow(x, y) & not SameCol(x, y)\n",
+    "worlds" : [ ]
+  }, {
+    "formulaName" : "Formula-7",
+    "question" : "toutes les formes parmi x, y et z qui sont sur une meme colonne ont la meme grandeur.",
+    "formulaText" : "//cette phrase peut être interprétée de plusieurs façons,\n//ce qui est un peu volontaire pour montrer que les énoncés\n//en langue naturelle peuvent être ambigus.\n//Ici, je veux dire que si 2 formes (autres que w)sont sur la même colonne, \n//leur grandeur est la même\n(SameCol(x, y) => SameSize(x, y)) &\n(SameCol(x, z) => SameSize(x, z)) &\n(SameCol(y, z) => SameSize(y, z))\n",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 1,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 2,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "LARGE",
+        "blockType" : "TRIANGLE"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 2,
+        "gridPosY" : 1,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 2,
+        "gridPosY" : 3,
+        "blockSize" : "SMALL",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 3,
+        "gridPosY" : 5,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-2",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "y",
+        "gridPosX" : 2,
+        "gridPosY" : 0,
+        "blockSize" : "SMALL",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "x",
+        "gridPosX" : 2,
+        "gridPosY" : 1,
+        "blockSize" : "SMALL",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 2,
+        "gridPosY" : 3,
+        "blockSize" : "SMALL",
+        "blockType" : "PENTAGON"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-8",
+    "question" : "x, y et z sont sur la meme ligne, ont des grandeurs differentes et sont tries en ordre de\ngrandeur",
+    "formulaText" : "//D'abord, on veut tout sur la même ligne.  Notez qu'il suffit de regarder x,y et y,z\n//car ceci implique que x et z sont sur la même ligne.  Ceci fonctionne parce que \"être sur la même\n//ligne\" est une relation d'équivalence (plus tard dans le cours).\n//Toutefois, il faut bien réfléchir avant d'utiliser ce genre de raccourci - ça dépend du contexte.\nSameRow(x, y) & SameRow(y, z) \n& \n//Par exemple, pour vérifier les grandeurs différentes, \n//not SameSize(x, y) & not SameSize(y, z)\n//ne suffirait pas!  On pourrait avoir x, z petit et y grand.  Ici il faut tout mettre\n//(sur une autre note, la ligne suivante est-elle vraiment requise?)\nnot SameSize(x, y) & not SameSize(x, z) & not SameSize(y, z)\n&\n//Pour le tri, je ne vois aucune façon meilleure que la force brute.  Il y a plusieurs façons.\n//Ma façon est d'utiliser tous les LeftOf possibles (et il faut vraiment tous les mettre!)\n//Notez qu'il FAUT les parenthèses autour de chaque implication\n(LeftOf(x, y) => Smaller(x, y)) & \n(LeftOf(x, z) => Smaller(x, z)) & \n(LeftOf(y, x) => Smaller(y, x)) & \n(LeftOf(y, z) => Smaller(y, z)) & \n(LeftOf(z, x) => Smaller(z, x)) & \n(LeftOf(z, y) => Smaller(z, y))",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 3,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 5,
+        "gridPosY" : 3,
+        "blockSize" : "SMALL",
+        "blockType" : "TRIANGLE"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 4,
+        "blockSize" : "SMALL",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 5,
+        "gridPosY" : 4,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-2",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 4,
+        "blockSize" : "SMALL",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 5,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "TRIANGLE"
+      } ]
+    }, {
+      "worldName" : "World-3",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 0,
+        "gridPosY" : 0,
+        "blockSize" : "SMALL",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 4,
+        "gridPosY" : 4,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 6,
+        "gridPosY" : 5,
+        "blockSize" : "LARGE",
+        "blockType" : "PENTAGON"
+      } ]
+    } ]
+  }, {
+    "formulaName" : "Formula-9",
+    "question" : "si on suppose que x n’est pas un carre, mais que x est sur la meme ligne qu’un carre,\nalors on peut déduire que de dire que y est petit est équivalent à dire que y n’est pas\nsur la même colonne que z",
+    "formulaText" : "//x n'est pas un carré mais est sur la même ligne qu'un carré\n(not Square(x) & \n  (SameRow(x, w) & Square(w)\n   or SameRow(x, y) & Square(y)\n   or SameRow(x, z) & Square(z)))\n//alors\n=>\n(Small(y) <=> not SameCol(y, z))\n",
+    "worlds" : [ {
+      "worldName" : "World-0",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "x",
+        "gridPosX" : 1,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "w",
+        "gridPosX" : 2,
+        "gridPosY" : 3,
+        "blockSize" : "MEDIUM",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "y",
+        "gridPosX" : 3,
+        "gridPosY" : 3,
+        "blockSize" : "SMALL",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "z",
+        "gridPosX" : 4,
+        "gridPosY" : 3,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      } ]
+    }, {
+      "worldName" : "World-1",
+      "worldShouldPass" : true,
+      "blocks" : [ {
+        "name" : "y",
+        "gridPosX" : 0,
+        "gridPosY" : 5,
+        "blockSize" : "MEDIUM",
+        "blockType" : "PENTAGON"
+      }, {
+        "name" : "z",
+        "gridPosX" : 0,
+        "gridPosY" : 6,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      }, {
+        "name" : "x",
+        "gridPosX" : 2,
+        "gridPosY" : 2,
+        "blockSize" : "MEDIUM",
+        "blockType" : "TRIANGLE"
+      }, {
+        "name" : "w",
+        "gridPosX" : 4,
+        "gridPosY" : 2,
+        "blockSize" : "LARGE",
+        "blockType" : "SQUARE"
+      } ]
+    } ]
+  } ]
+}

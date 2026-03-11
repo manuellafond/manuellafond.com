@@ -1,0 +1,231 @@
+Test de 7 insertions
+ens.size() = 7
+          -----[R]
+               |
+               -----a
+               |    |
+                    -----l*
+               |         |
+                         -----b
+               |         |    |
+                              -----a
+               |         |    |    |
+                                   -----n*
+               |         |    |
+                              -----e
+               |         |         |
+                                   -----r
+               |         |              |
+                                        -----t*
+               |         |
+                         -----l
+               |              |
+                              -----o*
+               |
+               -----b
+                    |
+                    -----o
+                         |
+                         -----b*
+                              |
+                              -----l
+                              |    |
+                                   -----e
+                              |         |
+                                        -----p*
+                              |
+                              -----o*
+----------------------------
+Test de contient
+Contient allo=1
+Contient albert=1
+Contient alberta=0
+Contient alban=1
+Contient al=1
+Contient albe=0
+Contient bob=1
+Contient bab=0
+Contient charles=0
+----------------------------
+Test d'insert multiple
+post-bob ens.size() = 7
+----------------------------
+Test de bino
+post-bino ens.size() = 8
+----------------------------
+Test de get_tri
+Contenu en ordre croissant
+al
+alban
+albert
+allo
+bino
+bob
+boblep
+bobo
+----------------------------
+Test de suppression
+post-3-suppression, ens.size() = 5
+          -----[R]
+               |
+               -----a
+               |    |
+                    -----l
+               |         |
+                         -----b
+               |         |    |
+                              -----a
+               |         |         |
+                                   -----n*
+               |         |
+                         -----l
+               |              |
+                              -----o*
+               |
+               -----b
+                    |
+                    -----i
+                    |    |
+                         -----n
+                    |         |
+                              -----o*
+                    |
+                    -----o
+                         |
+                         -----b*
+                              |
+                              -----o*
+----------------------------
+Test de tuple vide
+post-insertion de vide, ens.size() = 6
+contient vide = 1
+          -----[R]*
+               |
+               -----a
+               |    |
+                    -----l
+               |         |
+                         -----b
+               |         |    |
+                              -----a
+               |         |         |
+                                   -----n*
+               |         |
+                         -----l
+               |              |
+                              -----o*
+               |
+               -----b
+                    |
+                    -----i
+                    |    |
+                         -----n
+                    |         |
+                              -----o*
+                    |
+                    -----o
+                         |
+                         -----b*
+                              |
+                              -----o*
+-----------------------------
+-----------------------------
+-----------------------------
+Tests de arbre_lexico<vector<int>>
+Test de 7 insertions
+ensvec.size() = 7
+          -----[R]
+               |
+               -----2
+               |    |
+                    -----4
+               |    |    |
+                         -----6*
+               |    |    |    |
+                              -----8
+               |    |    |         |
+                                   -----10*
+               |    |    |
+                         -----9
+               |    |         |
+                              -----10*
+               |    |
+                    -----6
+               |         |
+                         -----10*
+               |
+               -----3
+                    |
+                    -----6
+                         |
+                         -----9*
+                         |    |
+                              -----12*
+                         |
+                         -----12
+                              |
+                              -----15*
+-----------------------------
+Test de get_tri
+2 4 6
+2 4 6 8 10
+2 4 9 10
+2 6 10
+3 6 9
+3 6 9 12
+3 6 12 15
+-----------------------------
+Test de suppression
+ensvec.size() = 5
+
+Test de contient
+Contient {3,6,9} = 1
+Contient {3,6,9,12} = 0
+          -----[R]
+               |
+               -----2
+               |    |
+                    -----4
+               |         |
+                         -----6*
+               |         |    |
+                              -----8
+               |         |         |
+                                   -----10*
+               |         |
+                         -----9
+               |              |
+                              -----10*
+               |
+               -----3
+                    |
+                    -----6
+                         |
+                         -----9*
+                         |
+                         -----12
+                              |
+                              -----15*
+-----------------------------
+-----------------------------
+-----------------------------
+Tests avec list<string>
+Contient (bob) = 0
+Contient (bob, bino) = 1
+          -----[R]
+               |
+               -----allo*
+               |    |
+                    -----aloha*
+               |
+               -----bob
+                    |
+                    -----bino*
+                    |
+                    -----gino*
+-----------------------------
+get_tri
+allo
+allo aloha
+bob bino
+bob gino

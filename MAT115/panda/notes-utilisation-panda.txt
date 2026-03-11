@@ -1,0 +1,28 @@
+Quelques notes utiles pour utiliser panda:
+
+1) pour entrer une formule, vous devez utiliser les termes "or", "and", "imply", "not"
+
+2) panda est exigeant avec les parenthèses.  Pour écrire une implication A => B, il faut avoir la forme ((A) imply (B))
+   Notez aussi que si "not p" a des occurrences dans A ou B, il faut le parenthéser, i.eé il faut écrire (not p)
+
+3) Pour utiliser la règle A => A or B, il faut créer la formule "A or B" manuellement, puis la glisser sous A.
+
+4) Pour sélectionner plusieurs formules, maintenez Ctrl + Shift puis cliquez sur vos formules.  
+   Si vous sélectionnez deux formules qui peuvent se combiner, l'onglet à gauche vous proposera une règle appropriée.
+   Utile par exemple pour p, not p => faux, ou encore pour les preuves par cas du style A ou B => C.
+
+5) Panda vous suggère des preuves par contradiction seulement pour des énoncés du style (not A).  i.e. Il va vous suggérer 
+   du supposer A pour dériver faux seulement si une négation est présente.  
+   Si vous avez A, et que vous voulez supposer (not A), ma meilleure façon est de faire not (not A) => A.  À partir de not (not A) vous pouvez supposer (not A) pour fins de contradiction.
+   
+   
+   
+Essayez ces exercices:
+
+(((not p) imply p) imply p)
+
+((not ((not p) or q)) imply (p and (not q)))   [à faire en exercice]
+
+((((not p) imply q) and ((not p) or q)) imply q)
+
+(((not p) or q) imply (not (p and (not q))))

@@ -1,0 +1,42 @@
+Matrice initiale
+1 2 3 4
+5 6 7 8
+9 10 11 12
+
+mat(1, 1) = 13
+1 2 3 4
+5 13 7 8
+9 10 11 12
+
+Swap rangees 1-2
+1 2 3 4
+9 10 11 12
+5 13 7 8
+
+Swap colonnes 1-2
+1 3 2 4
+9 11 10 12
+5 7 13 8
+
+mat_locale(500, 1000) = 2
+
+Copie de mat_locale par constructeur
+Copie de mat_locale par affectation
+mat_copy(500, 1000) = 2
+mat_assign(500, 1000) = 2
+
+Modif de mat_copy et mat_assign
+mat_locale(100, 200) = -842150451     (non-initialisee)
+mat_copy(100, 200) = 3
+mat_assign(100, 200) = 4
+La destruction de mat_locale et de ses copies n'a pas fait de crash :)
+
+Tests de garde
+mat_rand gardee=1
+mat_vide gardee=0
+mat_r1 gardee=1
+mat_rn gardee=1
+mat_c1 gardee=1
+mat_cn gardee=1
+mat_diag gardee=1
+mat_diag modifiee gardee=0
